@@ -1,12 +1,15 @@
 package cz.arokip.androiddevelopertask.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import cz.arokip.androiddevelopertask.R
+import cz.arokip.androiddevelopertask.activity.PositionDetailActivity.Companion.POSITION_DETAIL
 import cz.arokip.androiddevelopertask.view.PositionAdapter
 import cz.arokip.androiddevelopertask.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,12 +36,6 @@ class MainActivity : AppCompatActivity(),
 
         downloadButton.setOnClickListener {
             mainViewModel.positions.observe(this, Observer { positions ->
-//                positions.forEach { position->
-//                    println("position: $position")
-//                }
-                if (positions.isNotEmpty()) {
-                    println(positions[0])
-                }
                 adapter.setPositions(positions)
                 textView.text = "downloaded"
             })
@@ -46,6 +43,12 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onItemClick(view: View, position: Int) {
-        println("position's position: $position")
+        val intent = Intent(this@MainActivity, PositionDetailActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.putExtra(
+            POSITION_DETAIL,
+            Gson().toJson(mainViewModel.positions.value?.get(position))
+        )
+        startActivity(intent)
     }
 }
