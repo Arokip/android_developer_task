@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Android developer task</string>
+
+    <string name="company_logo">company logo</string>
+
+    <string name="company">company: %1$s</string>
+
 </resources>

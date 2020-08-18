@@ -3,8 +3,10 @@ package cz.arokip.androiddevelopertask.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import cz.arokip.androiddevelopertask.R
 import cz.arokip.androiddevelopertask.data.Position
 
@@ -23,7 +25,13 @@ class PositionAdapter : RecyclerView.Adapter<PositionAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val positionItem = positions[position]
 
-        holder.positionText.text = positionItem.company
+        holder.positionTitle.text = positionItem.title
+        holder.positionType.text = positionItem.type
+        holder.positionCompany.text =
+            holder.positionCompany.context.getString(R.string.company, positionItem.company)
+        holder.positionLocation.text = positionItem.location
+
+        Picasso.get().load(positionItem.companyLogo).into(holder.companyLogo)
     }
 
     override fun getItemCount(): Int {
@@ -32,8 +40,12 @@ class PositionAdapter : RecyclerView.Adapter<PositionAdapter.ViewHolder>() {
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        internal var positionText: TextView =
-            itemView.findViewById(R.id.positionText)
+        internal var companyLogo: ImageView = itemView.findViewById(R.id.companyLogo)
+
+        internal var positionTitle: TextView = itemView.findViewById(R.id.positionTitle)
+        internal var positionType: TextView = itemView.findViewById(R.id.positionType)
+        internal var positionCompany: TextView = itemView.findViewById(R.id.positionCompany)
+        internal var positionLocation: TextView = itemView.findViewById(R.id.positionLocation)
 
         init {
             itemView.setOnClickListener(this)
