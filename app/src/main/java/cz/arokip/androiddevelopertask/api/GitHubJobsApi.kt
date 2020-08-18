@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 interface GitHubJobsApi {
 
     @GET("positions.json")
-    suspend fun getPositions(): List<Position>
+    suspend fun getAllPositions(): List<Position>
 
     companion object {
 
