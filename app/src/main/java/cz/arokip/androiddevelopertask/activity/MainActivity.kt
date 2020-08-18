@@ -19,11 +19,14 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         downloadButton.setOnClickListener {
-            textView.text = "clicked"
             mainViewModel.positions.observe(this, Observer { positions ->
-                positions.forEach { position->
-                    println("position: $position")
+//                positions.forEach { position->
+//                    println("position: $position")
+//                }
+                if (positions.isNotEmpty()) {
+                    println(positions[0])
                 }
+                textView.text = "downloaded"
             })
         }
 
