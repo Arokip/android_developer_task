@@ -1,8 +1,10 @@
 package cz.arokip.androiddevelopertask.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +15,7 @@ import cz.arokip.androiddevelopertask.activity.PositionDetailActivity.Companion.
 import cz.arokip.androiddevelopertask.view.PositionAdapter
 import cz.arokip.androiddevelopertask.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(),
     PositionAdapter.ItemClickListener {
@@ -37,30 +40,40 @@ class MainActivity : AppCompatActivity(),
         mainViewModel.positions.observe(this, Observer { positions ->
             when {
                 positions == null -> {
-                    textView.text = mainViewModel.errorPositionMessage // or exception
+                    errorText.visibility = View.VISIBLE
+                    errorText.text = mainViewModel.errorMessage
                 }
                 positions.isEmpty() -> {
-                    textView.text = "nothing found" // or exception
+                    errorText.visibility = View.VISIBLE
+                    errorText.text = getString(R.string.no_job_found)
                 }
                 else -> {
                     adapter.setPositions(positions)
-                    textView.text = "downloaded"
                 }
             }
 
             progressBar.visibility = View.GONE
-            downloadButton.isEnabled = true
+            searchPositionButton.isEnabled = true
         })
 
-        downloadButton.setOnClickListener {
+        searchPositionButton.setOnClickListener {
 
+            val inputManager: InputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+            inputManager.hideSoftInputFromWindow(
+                currentFocus!!.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+
+            errorText.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
-            downloadButton.isEnabled = false
+            searchPositionButton.isEnabled = false
 
             mainViewModel.getAllPositions()
 
             adapter.setPositions(emptyList())
-            textView.text = "downloading..."
+            errorText.text = "downloading..."
         }
     }
 

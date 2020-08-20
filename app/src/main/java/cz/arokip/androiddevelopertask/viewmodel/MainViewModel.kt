@@ -17,7 +17,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: Repository = Repository()
 
     val positions: MutableLiveData<List<Position>> = MutableLiveData()
-    var errorPositionMessage: String? = null
+    var errorMessage: String? = null
 
     fun getAllPositions() = GlobalScope.launch(Dispatchers.IO) {
         val pos: List<Position>? = try {
@@ -25,19 +25,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         } catch (e: Exception) {
             when (e) {
                 is UnknownHostException -> {
-                    errorPositionMessage = "Connection error."
+                    errorMessage = "Connection error."
                 }
                 is SocketTimeoutException -> {
-                    errorPositionMessage = "Connection error."
+                    errorMessage = "Connection error."
                 }
                 is HttpException -> {
-                    errorPositionMessage = "Connection error."
+                    errorMessage = "Connection error."
                 }
                 is ConnectException -> {
-                    errorPositionMessage = "Connection error."
+                    errorMessage = "Connection error."
                 }
                 else -> {
-                    errorPositionMessage = "Unknown error occurred."
+                    errorMessage = "Unknown error occurred."
                 }
             }
             null

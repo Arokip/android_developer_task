@@ -4,5 +4,7 @@
     <string name="company_logo">company logo</string>
 
     <string name="company">company: %1$s</string>
+    <string name="no_job_found">No job found.</string>
+    <string name="search_job">Search job..</string>
 
 </resources>
