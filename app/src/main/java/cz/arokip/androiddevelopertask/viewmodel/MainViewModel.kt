@@ -26,7 +26,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             createErrorMessage(e)
             null
         }
-
         positions.postValue(pos)
     }
 
@@ -41,7 +40,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         positions.postValue(pos)
     }
 
-    fun createErrorMessage(e: Exception) {
+    private fun createErrorMessage(e: Exception) {
         when (e) {
             is UnknownHostException -> {
                 errorMessage = "Connection error."
@@ -60,4 +59,5 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
 }

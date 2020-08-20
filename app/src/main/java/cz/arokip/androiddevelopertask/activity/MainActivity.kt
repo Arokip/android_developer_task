@@ -16,7 +16,6 @@ import cz.arokip.androiddevelopertask.view.PositionAdapter
 import cz.arokip.androiddevelopertask.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity(),
     PositionAdapter.ItemClickListener {
 

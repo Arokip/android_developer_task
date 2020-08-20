@@ -13,7 +13,6 @@ import cz.arokip.androiddevelopertask.R
 import cz.arokip.androiddevelopertask.data.Position
 import kotlinx.android.synthetic.main.activity_position_detail.*
 
-
 class PositionDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

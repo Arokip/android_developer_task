@@ -51,7 +51,6 @@ class PositionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
 
-
     }
 
     override fun getItemCount(): Int {
@@ -59,8 +58,7 @@ class PositionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class ViewHolderPosition internal constructor(itemView: View) :
-        RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
         internal var companyLogo: ImageView = itemView.findViewById(R.id.companyLogo)
 
         internal var positionTitle: TextView = itemView.findViewById(R.id.positionTitle)
@@ -75,6 +73,7 @@ class PositionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         override fun onClick(view: View) {
             if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
         }
+
     }
 
     override fun getItemViewType(position: Int): Int {
