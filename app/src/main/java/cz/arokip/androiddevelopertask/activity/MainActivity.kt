@@ -34,11 +34,22 @@ class MainActivity : AppCompatActivity(),
         positionRecyclerView.layoutManager = LinearLayoutManager(this)
         positionRecyclerView.adapter = adapter
 
+        mainViewModel.positions.observe(this, Observer { positions ->
+            adapter.setPositions(positions)
+            textView.text = "downloaded"
+            progressBar.visibility = View.GONE
+            downloadButton.isEnabled = true
+        })
+
         downloadButton.setOnClickListener {
-            mainViewModel.positions.observe(this, Observer { positions ->
-                adapter.setPositions(positions)
-                textView.text = "downloaded"
-            })
+
+            progressBar.visibility = View.VISIBLE
+            downloadButton.isEnabled = false
+
+            mainViewModel.getAllPositions()
+
+            adapter.setPositions(emptyList())
+            textView.text = "downloading..."
         }
     }
 

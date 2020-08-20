@@ -10,35 +10,56 @@ import com.squareup.picasso.Picasso
 import cz.arokip.androiddevelopertask.R
 import cz.arokip.androiddevelopertask.data.Position
 
-class PositionAdapter : RecyclerView.Adapter<PositionAdapter.ViewHolder>() {
+class PositionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mClickListener: ItemClickListener? = null
 
-    private var positions = emptyList<Position>()
+    private var positions = emptyList<Any>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         val inflater = LayoutInflater.from(parent.context)
-        val positionView = inflater.inflate(R.layout.item_recyclerview_position, parent, false)
-        return ViewHolder(positionView)
+        return when (viewType) {
+            0 -> {
+                val positionView =
+                    inflater.inflate(R.layout.item_recyclerview_position, parent, false)
+                ViewHolderPosition(positionView)
+            }
+            else -> {
+                val positionView =
+                    inflater.inflate(R.layout.item_recyclerview_position, parent, false)
+                ViewHolderPosition(positionView)
+            }
+        }
+
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val positionItem = positions[position]
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        holder.positionTitle.text = positionItem.title
-        holder.positionType.text = positionItem.type
-        holder.positionCompany.text =
-            holder.positionCompany.context.getString(R.string.company, positionItem.company)
-        holder.positionLocation.text = positionItem.location
+        when (holder.itemViewType) {
+            0 -> {
+                holder as ViewHolderPosition
+                val positionItem = positions[position] as Position
 
-        Picasso.get().load(positionItem.companyLogo).into(holder.companyLogo)
+                holder.positionTitle.text = positionItem.title
+                holder.positionType.text = positionItem.type
+                holder.positionCompany.text =
+                    holder.positionCompany.context.getString(R.string.company, positionItem.company)
+                holder.positionLocation.text = positionItem.location
+
+                Picasso.get().load(positionItem.companyLogo).into(holder.companyLogo)
+            }
+        }
+
+
     }
 
     override fun getItemCount(): Int {
         return positions.size
     }
 
-    inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolderPosition internal constructor(itemView: View) :
+        RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal var companyLogo: ImageView = itemView.findViewById(R.id.companyLogo)
 
@@ -56,8 +77,12 @@ class PositionAdapter : RecyclerView.Adapter<PositionAdapter.ViewHolder>() {
         }
     }
 
-    internal fun getItem(id: Int): Position {
-        return positions[id]
+    override fun getItemViewType(position: Int): Int {
+        return if (positions[position] is Position) {
+            0
+        } else {
+            1
+        }
     }
 
     internal fun setClickListener(itemClickListener: ItemClickListener) {
