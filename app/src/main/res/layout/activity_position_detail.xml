@@ -11,7 +11,7 @@
         android:id="@+id/positionDetailCompanyLogo"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:layout_margin="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
         android:background="@drawable/background_image_white"
         android:contentDescription="@string/company_logo"
         android:padding="4dp"
@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/positionDetailTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
         android:textColor="@android:color/black"
@@ -33,9 +33,9 @@
 
     <ImageView
         android:id="@+id/positionDetailCompanyIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="@dimen/margin"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/big_margin"
         android:src="@drawable/ic_baseline_apartment_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/positionDetailTitle" />
@@ -51,10 +51,10 @@
 
     <ImageView
         android:id="@+id/positionDetailLocationIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/small_margin"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/extra_small_margin"
         android:src="@drawable/ic_baseline_location_on_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/positionDetailCompany" />
@@ -70,10 +70,10 @@
 
     <ImageView
         android:id="@+id/positionDetailTypeIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/small_margin"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/extra_small_margin"
         android:src="@drawable/ic_baseline_access_time_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/positionDetailLocation" />
@@ -90,7 +90,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="@dimen/small_margin"
         android:background="@drawable/background_scrollview_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/positionDetailType">

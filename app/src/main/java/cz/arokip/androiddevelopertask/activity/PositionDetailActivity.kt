@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
+import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
@@ -38,7 +39,8 @@ class PositionDetailActivity : AppCompatActivity() {
 
         positionDetailType.text = position.type
 
-        positionDetailDescription.text = fromHtml(position.description)
+        positionDetailDescription.text = fromHtml("${position.description}\n${position.howToApply}")
+        positionDetailDescription.movementMethod = LinkMovementMethod.getInstance();
 
     }
 
