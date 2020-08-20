@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 
@@ -12,6 +13,9 @@ interface GitHubJobsApi {
 
     @GET("positions.json")
     suspend fun getAllPositions(): List<Position>
+
+    @GET("positions.json")
+    suspend fun searchPositions(@Query("search") search: String): List<Position>
 
     companion object {
 

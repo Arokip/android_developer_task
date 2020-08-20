@@ -1,6 +1,6 @@
 package cz.arokip.androiddevelopertask.activity
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -58,28 +58,23 @@ class MainActivity : AppCompatActivity(),
 
         searchPositionButton.setOnClickListener {
 
-            val inputManager: InputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-            inputManager.hideSoftInputFromWindow(
-                currentFocus!!.windowToken,
-                InputMethodManager.HIDE_NOT_ALWAYS
-            )
+            val inputMethodManager =
+                getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(searchPositionButton.windowToken, 0)
 
             errorText.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
             searchPositionButton.isEnabled = false
 
-            mainViewModel.getAllPositions()
+            mainViewModel.searchPositions(searchPositionEditText.text.toString())
 
             adapter.setPositions(emptyList())
-            errorText.text = "downloading..."
         }
     }
 
     override fun onItemClick(view: View, position: Int) {
         val intent = Intent(this@MainActivity, PositionDetailActivity::class.java)
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.putExtra(
             POSITION_DETAIL,
             Gson().toJson(mainViewModel.positions.value?.get(position))

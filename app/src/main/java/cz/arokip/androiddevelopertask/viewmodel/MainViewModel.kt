@@ -23,26 +23,41 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val pos: List<Position>? = try {
             repository.getAllPositions()
         } catch (e: Exception) {
-            when (e) {
-                is UnknownHostException -> {
-                    errorMessage = "Connection error."
-                }
-                is SocketTimeoutException -> {
-                    errorMessage = "Connection error."
-                }
-                is HttpException -> {
-                    errorMessage = "Connection error."
-                }
-                is ConnectException -> {
-                    errorMessage = "Connection error."
-                }
-                else -> {
-                    errorMessage = "Unknown error occurred."
-                }
-            }
+            createErrorMessage(e)
             null
         }
 
         positions.postValue(pos)
+    }
+
+    fun searchPositions(search: String) = GlobalScope.launch(Dispatchers.IO) {
+        val pos: List<Position>? = try {
+            repository.searchPositions(search)
+        } catch (e: Exception) {
+            createErrorMessage(e)
+            null
+        }
+
+        positions.postValue(pos)
+    }
+
+    fun createErrorMessage(e: Exception) {
+        when (e) {
+            is UnknownHostException -> {
+                errorMessage = "Connection error."
+            }
+            is SocketTimeoutException -> {
+                errorMessage = "Connection error."
+            }
+            is HttpException -> {
+                errorMessage = "Connection error."
+            }
+            is ConnectException -> {
+                errorMessage = "Connection error."
+            }
+            else -> {
+                errorMessage = "Unknown error occurred."
+            }
+        }
     }
 }
