@@ -17,5 +17,5 @@ data class Position(
     @SerializedName("how_to_apply")
     val howToApply: String,
     @SerializedName("company_logo")
-    val companyLogo: String
+    val companyLogo: String?
 )

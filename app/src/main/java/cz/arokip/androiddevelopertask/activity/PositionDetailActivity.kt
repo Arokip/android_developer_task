@@ -4,8 +4,10 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import cz.arokip.androiddevelopertask.R
 import cz.arokip.androiddevelopertask.data.Position
 import kotlinx.android.synthetic.main.activity_position_detail.*
@@ -23,9 +25,20 @@ class PositionDetailActivity : AppCompatActivity() {
             Position::class.java
         )
 
-        positionCompany.text = position.company
+        if (position.companyLogo != null) {
+            positionDetailCompanyLogo.visibility = View.VISIBLE
+            Picasso.get().load(position.companyLogo).into(positionDetailCompanyLogo)
+        }
 
-        positionDescription.text = fromHtml(position.description)
+        positionDetailTitle.text = position.title
+
+        positionDetailCompany.text = position.company
+
+        positionDetailLocation.text = position.location
+
+        positionDetailType.text = position.type
+
+        positionDetailDescription.text = fromHtml(position.description)
 
     }
 

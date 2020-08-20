@@ -4,27 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_blue"
     tools:context=".activity.PositionDetailActivity">
 
-    <TextView
-        android:id="@+id/positionCompany"
+    <ImageView
+        android:id="@+id/positionDetailCompanyLogo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_margin="@dimen/margin"
+        android:background="@drawable/background_image_white"
+        android:contentDescription="@string/company_logo"
+        android:padding="4dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <TextView
+        android:id="@+id/positionDetailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/positionCompany">
+        app:layout_constraintTop_toBottomOf="@id/positionDetailCompanyLogo" />
+
+    <ImageView
+        android:id="@+id/positionDetailCompanyIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/margin"
+        android:src="@drawable/ic_baseline_apartment_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/positionDetailTitle" />
+
+    <TextView
+        android:id="@+id/positionDetailCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/positionDetailCompanyIcon"
+        app:layout_constraintTop_toTopOf="@id/positionDetailCompanyIcon" />
+
+    <ImageView
+        android:id="@+id/positionDetailLocationIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:src="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/positionDetailCompany" />
+
+    <TextView
+        android:id="@+id/positionDetailLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/positionDetailLocationIcon"
+        app:layout_constraintTop_toTopOf="@id/positionDetailLocationIcon" />
+
+    <ImageView
+        android:id="@+id/positionDetailTypeIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:src="@drawable/ic_baseline_access_time_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/positionDetailLocation" />
+
+    <TextView
+        android:id="@+id/positionDetailType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/positionDetailTypeIcon"
+        app:layout_constraintTop_toTopOf="@id/positionDetailTypeIcon" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/margin"
+        android:background="@drawable/background_scrollview_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/positionDetailType">
 
         <TextView
-            android:id="@+id/positionDescription"
+            android:id="@+id/positionDetailDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin" />
