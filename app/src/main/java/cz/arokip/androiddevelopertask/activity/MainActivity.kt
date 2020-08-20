@@ -35,8 +35,19 @@ class MainActivity : AppCompatActivity(),
         positionRecyclerView.adapter = adapter
 
         mainViewModel.positions.observe(this, Observer { positions ->
-            adapter.setPositions(positions)
-            textView.text = "downloaded"
+            when {
+                positions == null -> {
+                    textView.text = mainViewModel.errorPositionMessage // or exception
+                }
+                positions.isEmpty() -> {
+                    textView.text = "nothing found" // or exception
+                }
+                else -> {
+                    adapter.setPositions(positions)
+                    textView.text = "downloaded"
+                }
+            }
+
             progressBar.visibility = View.GONE
             downloadButton.isEnabled = true
         })

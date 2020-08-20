@@ -32,11 +32,8 @@ class PositionDetailActivity : AppCompatActivity() {
         }
 
         positionDetailTitle.text = position.title
-
         positionDetailCompany.text = position.company
-
         positionDetailLocation.text = position.location
-
         positionDetailType.text = position.type
 
         positionDetailDescription.text = fromHtml("${position.description}\n${position.howToApply}")

@@ -8,18 +8,41 @@ import cz.arokip.androiddevelopertask.data.Position
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: Repository = Repository()
 
-//    val positions: LiveData<List<Position>> = liveData(Dispatchers.IO) {
-//        val data = repository.getAllPositions()
-//        emit(data)
-//    }
-
     val positions: MutableLiveData<List<Position>> = MutableLiveData()
+    var errorPositionMessage: String? = null
 
     fun getAllPositions() = GlobalScope.launch(Dispatchers.IO) {
-        positions.postValue(repository.getAllPositions())
+        val pos: List<Position>? = try {
+            repository.getAllPositions()
+        } catch (e: Exception) {
+            when (e) {
+                is UnknownHostException -> {
+                    errorPositionMessage = "Connection error."
+                }
+                is SocketTimeoutException -> {
+                    errorPositionMessage = "Connection error."
+                }
+                is HttpException -> {
+                    errorPositionMessage = "Connection error."
+                }
+                is ConnectException -> {
+                    errorPositionMessage = "Connection error."
+                }
+                else -> {
+                    errorPositionMessage = "Unknown error occurred."
+                }
+            }
+            null
+        }
+
+        positions.postValue(pos)
     }
 }
